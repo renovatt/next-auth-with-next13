@@ -3,18 +3,21 @@ import prisma from "@/lib/prisma";
 import * as bcrypt from "bcrypt";
 
 interface RequestBody {
-    username: string;
+    email: string;
     password: string;
 }
 
 export async function POST(request: Request) {
     const body: RequestBody = await request.json()
+    // console.log(request)
 
-    const user = await prisma.user.findFirst({
+    const user = await prisma.user.findUnique({
         where: {
-            email: body.username
-        }
+            email: body.email,
+        },
     });
+
+    // if (!user) throw new Error("Usuário não encontrado.");
 
     if (user && (await bcrypt.compare(body.password, user.password))) {
         const { password, ...userWithouPass } = user;
