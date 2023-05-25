@@ -26,7 +26,7 @@ const Form = () => {
     return (
         <FormProvider {...methods}>
             <section className="flex flex-col gap-4 w-full max-w-xs">
-                <h1 className="text-3xl text-center">Faça seu Registro</h1>
+                <h1 className="text-3xl text-center">Faça seu registro agora</h1>
                 <form className="flex flex-col gap-4 w-full max-w-xs"
                     onSubmit={methods.handleSubmit(userRegisterSubmit)}>
                     <Input
