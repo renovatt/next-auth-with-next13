@@ -31,7 +31,7 @@ const Form = () => {
                     onSubmit={methods.handleSubmit(userRegisterSubmit)}>
                     <Input
                         label='Nome'
-                        name='name'
+                        name='username'
                         type='text'
                         placeholder='João'
                     />
