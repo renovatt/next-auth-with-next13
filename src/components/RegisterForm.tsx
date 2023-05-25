@@ -5,6 +5,7 @@ import Input from './Input'
 import { FormProvider, useForm } from 'react-hook-form'
 import { RegisterUserProps } from '@/@types'
 import { registerUser } from '@/services'
+import { signIn } from 'next-auth/react'
 
 const RegisterForm = () => {
     const methods = useForm<RegisterUserProps>({
@@ -52,6 +53,11 @@ const RegisterForm = () => {
 
                     <input className="bg-violet-500 text-white rounded px-3 h-10 font-semibold text-sm hover:bg-violet-600 cursor-pointer" type="submit" value="Registrar" />
                 </form>
+                <button
+                    type="button"
+                    onClick={() => signIn("github", { callbackUrl: "/" })}
+                    className="w-full bg-neutral-900 text-white rounded px-3 h-10 font-semibold text-sm hover:bg-neutral-950 cursor-pointer"
+                >Github</button>
             </section>
         </FormProvider>
     )

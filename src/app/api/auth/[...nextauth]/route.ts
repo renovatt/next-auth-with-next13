@@ -1,5 +1,6 @@
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
+import GitHubProvider from "next-auth/providers/github";
 
 const handler = NextAuth({
     providers: [
@@ -31,8 +32,22 @@ const handler = NextAuth({
                     return null
                 }
             }
+        }),
+        GitHubProvider({
+            clientId: process.env.GITHUB_ID!,
+            clientSecret: process.env.GITHUB_SECRET!,
+            profile(profile) {
+                return {
+                    id: profile.id.toString(),
+                    name: profile.name || profile.login,
+                    username: profile.login,
+                    email: profile.email,
+                    image: profile.avatar_url
+                }
+            }
         })
     ],
+    secret: process.env.NEXTAUTH_SECRET,
     callbacks: {
         async jwt({ token, user }) {
             return ({ ...token, ...user })
