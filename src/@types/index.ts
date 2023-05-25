@@ -4,6 +4,11 @@ export type RegisterUserProps = {
     password: string;
 }
 
+export type LoginUserProps = {
+    email: string;
+    password: string;
+}
+
 export type InputProps = {
     name: string;
     label: string;

@@ -6,7 +6,7 @@ import { FormProvider, useForm } from 'react-hook-form'
 import { RegisterUserProps } from '@/@types'
 import { registerUser } from '@/services'
 
-const Form = () => {
+const RegisterForm = () => {
     const methods = useForm<RegisterUserProps>({
         mode: 'all',
         reValidateMode: 'onChange',
@@ -25,9 +25,9 @@ const Form = () => {
 
     return (
         <FormProvider {...methods}>
-            <section className="flex flex-col gap-4 w-full max-w-xs">
-                <h1 className="text-3xl text-center">Faça seu registro agora</h1>
-                <form className="flex flex-col gap-4 w-full max-w-xs"
+            <section className="flex flex-col gap-4 w-full bg-gradient-to-b from-white to-gray-200 shadow max-w-xs border p-2 rounded">
+                <h1 className="text-2xl text-violet-500 text-center">Faça seu registro agora</h1>
+                <form className="flex flex-col gap-4 mt-2 w-full max-w-xs"
                     onSubmit={methods.handleSubmit(userRegisterSubmit)}>
                     <Input
                         label='Nome'
@@ -57,4 +57,4 @@ const Form = () => {
     )
 }
 
-export default Form;
+export default RegisterForm;
