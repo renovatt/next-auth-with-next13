@@ -6,6 +6,8 @@ import { FormProvider, useForm } from 'react-hook-form'
 import { RegisterUserProps } from '@/@types'
 import { registerUser } from '@/services'
 import { signIn } from 'next-auth/react'
+import { toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
 
 const RegisterForm = () => {
     const methods = useForm<RegisterUserProps>({
@@ -13,14 +15,17 @@ const RegisterForm = () => {
         reValidateMode: 'onChange',
     });
 
+    const router = useRouter()
+
     const userRegisterSubmit = async (data: RegisterUserProps) => {
         const { response, error } = await registerUser(data)
-        console.log(data)
+
         if (response) {
-            console.log("ok: ", response)
+            toast.success(response.message.toString())
             methods.reset()
+            router.push('/login')
         } else {
-            console.log("error: ", error)
+            toast.error(error.toString())
         }
     }
 
