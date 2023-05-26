@@ -1,5 +1,11 @@
 import LoginForm from '@/components/LoginForm'
+import { Metadata } from 'next'
 import React from 'react'
+
+export const metadata: Metadata = {
+    title: 'Login | Next Auth',
+    description: 'Next-Auth login',
+}
 
 const Login = () => {
     return (

@@ -1,4 +1,4 @@
-"use client"
+// "use client"
 
 import Providers from '@/components/Providers'
 import './globals.css'
@@ -6,10 +6,11 @@ import { Inter } from 'next/font/google'
 import AppBar from '@/components/AppBar'
 import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import { Metadata } from 'next';
 
 const inter = Inter({ subsets: ['latin'] })
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Next Auth',
   description: 'Next-Auth login',
 }
