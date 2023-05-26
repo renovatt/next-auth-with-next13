@@ -1,3 +1,8 @@
+import { zodSchema } from "@/zod";
+import { z } from "zod";
+
+export type SchemaTypeProps = z.infer<typeof zodSchema>
+
 export type RegisterUserProps = {
     username: string;
     email: string;

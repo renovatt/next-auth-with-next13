@@ -3,30 +3,39 @@
 import React from 'react'
 import Input from './Input'
 import { FormProvider, useForm } from 'react-hook-form'
-import { RegisterUserProps } from '@/@types'
+import { SchemaTypeProps } from '@/@types'
 import { registerUser } from '@/services'
 import { signIn } from 'next-auth/react'
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
+import { ErrorMessage } from './ErrorMessage'
+import { zodSchema } from '@/zod'
+import { zodResolver } from '@hookform/resolvers/zod'
 
 const RegisterForm = () => {
-    const methods = useForm<RegisterUserProps>({
+    const methods = useForm<SchemaTypeProps>({
         mode: 'all',
         reValidateMode: 'onChange',
+        resolver: zodResolver(zodSchema)
     });
 
     const router = useRouter()
 
-    const userRegisterSubmit = async (data: RegisterUserProps) => {
+    const userRegisterSubmit = async (data: SchemaTypeProps) => {
         const { response, error } = await registerUser(data)
 
         if (response) {
             toast.success(response.message.toString())
             methods.reset()
-            router.push('/login')
+            router.push('/')
         } else {
             toast.error(error.toString())
         }
+    }
+
+    const loginByGithub = () => {
+        signIn("github", { callbackUrl: '/' })
+        toast.success('Usuário registrado com sucesso!')
     }
 
     return (
@@ -41,6 +50,7 @@ const RegisterForm = () => {
                         type='text'
                         placeholder='João'
                     />
+                    <ErrorMessage field='username' />
 
                     <Input
                         label='E-mail'
@@ -48,19 +58,30 @@ const RegisterForm = () => {
                         type='email'
                         placeholder='joao@gmail.com'
                     />
+                    <ErrorMessage field='email' />
 
                     <Input
                         label='Senha'
                         name='password'
                         type='password'
-                        placeholder='***'
+                        placeholder='******'
                     />
+                    <ErrorMessage field='password' />
+
+                    <Input
+                        label='Confirme sua senha'
+                        name='confirmPassword'
+                        type='password'
+                        placeholder='******'
+                    />
+                    <ErrorMessage field='confirmPassword' />
 
                     <input className="bg-violet-500 text-white rounded px-3 h-10 font-semibold text-sm hover:bg-violet-600 cursor-pointer" type="submit" value="Registrar" />
                 </form>
+                
                 <button
                     type="button"
-                    onClick={() => signIn("github", { callbackUrl: "/" })}
+                    onClick={() => loginByGithub()}
                     className="w-full bg-neutral-900 text-white rounded px-3 h-10 font-semibold text-sm hover:bg-neutral-950 cursor-pointer"
                 >Github</button>
             </section>

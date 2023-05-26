@@ -1,3 +1,10 @@
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: 'NotFound | Next Auth',
+  description: 'Next-Auth login',
+}
+
 const NotuFound = () => {
   return (
     <div className="flex justify-center items-center gap-5">

@@ -2,23 +2,34 @@
 
 import React from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
-import { LoginUserProps } from '@/@types'
+import { SchemaTypeProps } from '@/@types'
+import { zodResolver } from '@hookform/resolvers/zod'
 import Input from '@/components/Input'
 import { signIn } from 'next-auth/react'
+import { zodSchema } from '@/zod'
+import { ErrorMessage } from './ErrorMessage'
+import { toast } from 'react-toastify'
 
 const LoginForm = () => {
-    const methods = useForm<LoginUserProps>({
+    const methods = useForm<SchemaTypeProps>({
         mode: 'all',
         reValidateMode: 'onChange',
+        resolver: zodResolver(zodSchema)
     });
 
-    const userRegisterSubmit = async (data: LoginUserProps) => {
+    const userRegisterSubmit = async (data: SchemaTypeProps) => {
         await signIn("credentials", {
             email: data.email,
             password: data.password,
             redirect: true,
             callbackUrl: '/'
         })
+        toast.success('Bem vindo!')
+    }
+
+    const loginByGithub = () => {
+        signIn("github", { callbackUrl: '/' })
+        toast.success('Bem vindo!')
     }
 
     return (
@@ -33,20 +44,22 @@ const LoginForm = () => {
                         type='email'
                         placeholder='joao@gmail.com'
                     />
+                    <ErrorMessage field='email' />
 
                     <Input
                         label='Senha'
                         name='password'
                         type='password'
-                        placeholder='***'
+                        placeholder='******'
                     />
+                    <ErrorMessage field='password' />
 
                     <input className="bg-violet-500 text-white rounded px-3 h-10 font-semibold text-sm hover:bg-violet-600 cursor-pointer" type="submit" value="Fazer Login" />
                 </form>
 
                 <button
                     type="button"
-                    onClick={() => signIn("github", { callbackUrl: "/" })}
+                    onClick={() => loginByGithub()}
                     className="w-full bg-neutral-900 text-white rounded px-3 h-10 font-semibold text-sm hover:bg-neutral-950 cursor-pointer"
                 >Github</button>
 
