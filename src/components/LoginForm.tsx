@@ -46,8 +46,7 @@ const LoginForm = () => {
 
                 <button
                     type="button"
-                    // onClick={() => signIn("github", { callbackUrl: "/" })}
-                    onClick={() => signIn("github")}
+                    onClick={() => signIn("github", { callbackUrl: "/" })}
                     className="w-full bg-neutral-900 text-white rounded px-3 h-10 font-semibold text-sm hover:bg-neutral-950 cursor-pointer"
                 >Github</button>
 
