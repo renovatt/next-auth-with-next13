@@ -21,9 +21,6 @@ const LoginForm = () => {
     const userLoginSubmit = async (data: LoginSchemaTypeProps) => {
         const { response: user, error } = await loginUser(data)
 
-        console.log(user)
-        console.log(error)
-
         if (user?.result) {
             await signIn("credentials", {
                 email: data.email,

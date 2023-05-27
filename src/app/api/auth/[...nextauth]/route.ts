@@ -1,4 +1,4 @@
-import { loginUser } from "@/services";
+import { credencialsLoginUser } from "@/services";
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GitHubProvider from "next-auth/providers/github";
@@ -20,7 +20,7 @@ const handler = NextAuth({
                 }
             },
             async authorize(credentials, req) {
-                const { response: user, error } = await loginUser(credentials)
+                const { response: user, error } = await credencialsLoginUser(credentials)
 
                 if (user?.result) {
                     return user?.result
