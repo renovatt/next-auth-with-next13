@@ -6,8 +6,8 @@ import Link from "next/link";
 
 const SigninButton = () => {
   const { data: session } = useSession();
-  console.log("user: ", session?.user ? session?.user : "Não logado");
-  console.log("user: ", session?.user.image ? session?.user.image : "Sem imagem");
+  // console.log("user: ", session?.user ? session?.user : "Não logado");
+  // console.log("user: ", session?.user.image ? session?.user.image : "Sem imagem");
 
   function handleLoad(event: React.SyntheticEvent<HTMLImageElement>): void {
     const target = event.target as HTMLImageElement;

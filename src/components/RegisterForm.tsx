@@ -3,31 +3,31 @@
 import React from 'react'
 import Input from './Input'
 import { FormProvider, useForm } from 'react-hook-form'
-import { SchemaTypeProps } from '@/@types'
+import { RegisterSchemaTypeProps } from '@/@types'
 import { registerUser } from '@/services'
 import { signIn } from 'next-auth/react'
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
 import { ErrorMessage } from './ErrorMessage'
-import { zodSchema } from '@/zod'
+import { registerSchema } from '@/zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 const RegisterForm = () => {
-    const methods = useForm<SchemaTypeProps>({
+    const methods = useForm<RegisterSchemaTypeProps>({
         mode: 'all',
         reValidateMode: 'onChange',
-        resolver: zodResolver(zodSchema)
+        resolver: zodResolver(registerSchema)
     });
 
     const router = useRouter()
 
-    const userRegisterSubmit = async (data: SchemaTypeProps) => {
+    const userRegisterSubmit = async (data: RegisterSchemaTypeProps) => {
         const { response, error } = await registerUser(data)
 
         if (response) {
             toast.success(response.message.toString())
             methods.reset()
-            router.push('/')
+            router.push('/login')
         } else {
             toast.error(error.toString())
         }
@@ -78,7 +78,7 @@ const RegisterForm = () => {
 
                     <input className="bg-violet-500 text-white rounded px-3 h-10 font-semibold text-sm hover:bg-violet-600 cursor-pointer" type="submit" value="Registrar" />
                 </form>
-                
+
                 <button
                     type="button"
                     onClick={() => loginByGithub()}

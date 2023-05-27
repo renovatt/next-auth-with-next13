@@ -1,4 +1,4 @@
-import { LoginUserProps } from "@/@types";
+import { LoginSchemaTypeProps } from "@/@types";
 import { BadRequesError, InternalError, NotFoundError } from "@/errors";
 import { signJwtAcessToken } from "@/lib/jwt";
 import prisma from "@/lib/prisma";
@@ -6,7 +6,7 @@ import * as bcrypt from "bcrypt";
 
 export async function POST(request: Request) {
     try {
-        const body: LoginUserProps = await request.json()
+        const body: LoginSchemaTypeProps = await request.json()
 
         const user = await prisma.user.findUnique({
             where: {
@@ -26,7 +26,7 @@ export async function POST(request: Request) {
 
             const result = { ...userWithouPass, accessToken }
 
-            return new Response(JSON.stringify(result));
+            return new Response(JSON.stringify({ result, message: "Bem vindo, " }));
         }
 
     } catch (error: any) {

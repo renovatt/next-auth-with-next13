@@ -1,22 +1,19 @@
-import { zodSchema } from "@/zod";
 import { z } from "zod";
+import { loginSchema, registerSchema } from "@/zod";
 
-export type SchemaTypeProps = z.infer<typeof zodSchema>
+type CredentialKeys = "email" | "password";
 
-export type RegisterUserProps = {
-    username: string;
-    email: string;
-    password: string;
-}
-
-export type LoginUserProps = {
-    email: string;
-    password: string;
-}
+export type RegisterSchemaTypeProps = z.infer<typeof registerSchema>;
+export type LoginSchemaTypeProps = z.infer<typeof loginSchema>;
+export type CredentialsTypeProps = Record<CredentialKeys, string> | undefined;
 
 export type InputProps = {
     name: string;
     label: string;
     type: string;
     placeholder: string;
+}
+
+export type ErrorMessageProps = {
+    field: string
 }

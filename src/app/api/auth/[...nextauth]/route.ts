@@ -1,3 +1,4 @@
+import { loginUser } from "@/services";
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GitHubProvider from "next-auth/providers/github";
@@ -7,29 +8,24 @@ const handler = NextAuth({
         CredentialsProvider({
             name: "Credentials",
             credentials: {
-                email: { label: "Email", type: "email", placeholder: "email@gmail.com" },
-                password: { label: "Password", type: "password", placeholder: "***" }
+                email: {
+                    label: "Email",
+                    type: "email",
+                    placeholder: "email@gmail.com"
+                },
+                password: {
+                    label: "Password",
+                    type: "password",
+                    placeholder: "******"
+                }
             },
             async authorize(credentials, req) {
-                const url = process.env.URL;
+                const { response: user, error } = await loginUser(credentials)
 
-                const res = await fetch(`${url}/api/login`, {
-                    method: "POST",
-                    headers: {
-                        "Content-type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        email: credentials?.email,
-                        password: credentials?.password
-                    })
-                })
-
-                const user = await res.json()
-
-                if (user) {
-                    return user
+                if (user?.result) {
+                    return user?.result
                 } else {
-                    return null
+                    return error ?? null
                 }
             }
         }),

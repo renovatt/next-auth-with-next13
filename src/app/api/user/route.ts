@@ -1,4 +1,4 @@
-import { RegisterUserProps } from "@/@types";
+import { RegisterSchemaTypeProps } from "@/@types";
 import { BadRequesError, InternalError } from "@/errors";
 import prisma from "@/lib/prisma";
 import { verifyEmail, verifyValidPassword } from "@/lib/validations";
@@ -8,7 +8,7 @@ import { NextResponse } from "next/server";
 export async function POST(request: Request) {
 
     try {
-        const body: RegisterUserProps = await request.json()
+        const body: RegisterSchemaTypeProps = await request.json()
 
         const { username, email, password: userPassword } = body;
 

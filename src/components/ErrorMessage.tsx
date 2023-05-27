@@ -1,8 +1,5 @@
+import { ErrorMessageProps } from '@/@types';
 import { useFormContext } from 'react-hook-form'
-
-interface ErrorMessageProps {
-  field: string
-}
 
 function get(obj: Record<any, any>, path: string) {
   const travel = (regexp: RegExp) =>

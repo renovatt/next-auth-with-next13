@@ -2,29 +2,39 @@
 
 import React from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
-import { SchemaTypeProps } from '@/@types'
+import { LoginSchemaTypeProps } from '@/@types'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Input from '@/components/Input'
 import { signIn } from 'next-auth/react'
-import { zodSchema } from '@/zod'
+import { loginSchema } from '@/zod'
 import { ErrorMessage } from './ErrorMessage'
 import { toast } from 'react-toastify'
+import { loginUser } from '@/services'
 
 const LoginForm = () => {
-    const methods = useForm<SchemaTypeProps>({
+    const methods = useForm<LoginSchemaTypeProps>({
         mode: 'all',
         reValidateMode: 'onChange',
-        resolver: zodResolver(zodSchema)
+        resolver: zodResolver(loginSchema)
     });
 
-    const userRegisterSubmit = async (data: SchemaTypeProps) => {
-        await signIn("credentials", {
-            email: data.email,
-            password: data.password,
-            redirect: true,
-            callbackUrl: '/'
-        })
-        toast.success('Bem vindo!')
+    const userLoginSubmit = async (data: LoginSchemaTypeProps) => {
+        const { response: user, error } = await loginUser(data)
+
+        console.log(user)
+        console.log(error)
+
+        if (user?.result) {
+            await signIn("credentials", {
+                email: data.email,
+                password: data.password,
+                redirect: true,
+                callbackUrl: '/'
+            })
+            toast.success(`${user.message.toString()} ${user.result.username}!`)
+        } else {
+            toast.error(error.toString())
+        }
     }
 
     const loginByGithub = () => {
@@ -37,7 +47,7 @@ const LoginForm = () => {
             <section className="flex justify-center items-center flex-col gap-4 w-full bg-gradient-to-b from-white to-gray-200 shadow max-w-xs border p-2 rounded">
                 <h1 className="text-2xl text-violet-500 text-center">Fazer Login</h1>
                 <form className="flex flex-col gap-4 mt-2 w-full max-w-xs"
-                    onSubmit={methods.handleSubmit(userRegisterSubmit)}>
+                    onSubmit={methods.handleSubmit(userLoginSubmit)}>
                     <Input
                         label='E-mail'
                         name='email'
