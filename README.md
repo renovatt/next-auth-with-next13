@@ -2,30 +2,30 @@
 
 <div align='center'>
 <h1>Next-Auth<br> <br>
-<p>Login usando Next-Auth</p>
-<img src="./public/logo512.png" width="50px"></h1>
+<p>Autenticação com Next-Auth</p>
+<img src="./public/auth.png" width="50px"></h1>
 </div>
 
 ## Descrição
 
 [Ver Projeto](https://next-auth-with-next13.vercel.app/)
 
-#### Pequeno projeto fullstack usando [next-auth](https://next-auth.js.org/) como autenticação de login na versão Next.js 13.4, usando SQLite como banco de dados, JWT e bcrypt.
+#### Este é um pequeno projeto fullstack que utiliza [next-auth](https://next-auth.js.org) para autenticação de login na versão Next.js 13.4. O projeto usa MongoDB como banco de dados e inclui recursos como JWT, bcrypt, React-Hook-Form e Zod para melhorar a segurança e a validação dos dados. Além disso, foi implementada uma API simples que permite o tratamento de erros em tempo real, fornecendo feedback instantâneo ao usuário.
 
 #
 
 
 <!-- ![screens](./public/screens.png)
 
-#
+# -->
 
-## _Layout Mobile_
+<!-- ## _Layout Mobile_
 
 ![Mobile 1](./public/mobile-1.png)
 ![Mobile 2](./public/mobile-2.png)
 ![Mobile 3](./public/mobile-3.png)
 
-#
+# -->
 
 ## _Layout Web_
 
@@ -36,8 +36,6 @@
 #
 ![Web 3](./public/web-3.png)
 #
-![Web 4](./public/web-4.png)
-# -->
 
 ## 🛠️ Tecnologias
 
@@ -46,16 +44,17 @@
 - [TypeScript](https://www.typescriptlang.org)
 
 📚 **Bibliotecas**
-- [next-auth](https://next-auth.js.org/)
-- [jsonwebtoken](https://jwt.io/)
+- [next-auth](https://next-auth.js.org)
+- [jsonwebtoken](https://jwt.io)
 - [bcrypt](https://www.npmjs.com/package/bcrypt)
-- [react-icons](https://react-icons.github.io/react-icons)
+- [zod](https://zod.dev)
+- [react-hook-form](https://react-hook-form.com)
 - [react-toastify](https://www.npmjs.com/package/react-toastify)
 
 📁 **Back-end**
 - [Prisma](https://www.prisma.io)
 - [Node.js](https://nodejs.org)
-- [SQLite](https://www.sqlite.org/index.html)
+- [MongoDB](https://www.mongodb.com)
 
 🎨 **Estilização**
 - [tailwindcss](https://tailwindcss.com/docs/installation)
